@@ -1,9 +1,11 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 import PostsList from "./PostsList";
 import NewPostForm from "./NewPostForm";
-import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
+import store from "./store";
+import { Provider } from "react-redux";
 
 // TODO Import the store, and use React-Redux's <Provider> inside <ReactReduxTask>
 
@@ -21,16 +23,18 @@ extract the data, and write a \`mapDispatch()\` function or use the "object shor
 \`<NewPostsForm>\` can dispatch an action with the new post details.
 
 You also need to import and use \`<Provider>\` in \`Task.jsx\` so that all the connected components in the component
-tree have access to the Redux store automatically.`
+tree have access to the Redux store automatically.`;
 export default class ReactReduxTask extends Component {
-    render() {
-        return (
-            <div>
-                <h3>React-Redux</h3>
-                <PostsList />
-                <NewPostForm />
-                <ReactMarkdown plugins={[gfm]} children={markdown} />
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <h3>React-Redux</h3>
+        <Provider store={store}>
+          <PostsList />
+          <NewPostForm />
+          <ReactMarkdown plugins={[gfm]} children={markdown} />
+        </Provider>
+      </div>
+    );
+  }
 }
